@@ -19,10 +19,10 @@ app.get('/tilecache/:z/:x/:y', async (req, res) => {
         res.sendFile(imagePath);
     } else {
         // Si la imagen no existe o ha expirado, descargarla de la URL y guardarla en la caché
-        const url = `https://c.tile.openstreetmap.org/${z}/${x}/${y}.png`;
+        const urlServer = `https://c.tile.openstreetmap.org/${z}/${x}/${y}.png`;
 
         try {
-            const response = await axios.get(url, { responseType: 'arraybuffer' });
+            const response = await axios.get(urlServer, { responseType: 'arraybuffer' });
 
             // Verificar si la respuesta es un código 200 y si contiene una imagen
             if (response.status === 200 && response.headers['content-type'].startsWith('image') && parseInt(response.data.length) === parseInt(response.headers["content-length"])) {
